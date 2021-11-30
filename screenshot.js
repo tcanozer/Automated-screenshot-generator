@@ -38,7 +38,7 @@ function takeAndUploadScreenshot(drive, element) {
   var url_name = element.replace(/.+\/\/|www.|\..+/g, "");
   var imageName = url_name + '.png';
   screenshotmachine.readScreenshot(apiUrl).pipe(fs.createWriteStream(imageName).on('close', function () {
-    console.log('Screenshot saved as ' + imageName + '\n image_link : ' + apiUrl);
+    console.log('- Screenshot saved as ' + imageName + '\nLink: ' + apiUrl);
     uploadScreenShotToDrive(drive, imageName)
   }));
 }
@@ -66,9 +66,7 @@ function connectToDrive() {
 
 async function uploadScreenShotToDrive(drive, imageName) {
   try {
-    //var x = await resolveAfter2Seconds(50);
     const filePath = path.join(__dirname, imageName);
-    
     const response = drive.files.create({
       requestBody: {
         name: imageName,
@@ -79,8 +77,6 @@ async function uploadScreenShotToDrive(drive, imageName) {
         body: fs.createReadStream(filePath),
       },
     });
-    console.log(response.data);
-
   } catch (error) {
     console.log(error.message);
   }
