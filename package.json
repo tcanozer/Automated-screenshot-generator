@@ -1,0 +1,15 @@
+{
+  "name": "assigment",
+  "version": "1.0.0",
+  "description": "internship",
+  "main": "streenshot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "can ozer",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^92.0.0",
+    "screenshotmachine": "^2.0.0"
+  }
+}
