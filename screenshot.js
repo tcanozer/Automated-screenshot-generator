@@ -2,12 +2,11 @@ var screenshotmachine = require('screenshotmachine');
 var fs = require('fs');
 var { google } = require('googleapis');
 var path = require('path');
+var folderId = '1Etu8plbSJGMM70qbtq9EdYKWH6Kkb4Ws';
 const config = require('./config.json');
 
 
-
 main();
-
 
 function main() {
 
@@ -77,6 +76,8 @@ async function uploadScreenShotToDrive(drive, imageName) {
       requestBody: {
         name: imageName,
         mimeType: 'image/png',
+        parents: [folderId]
+
       },
       media: {
         mimeType: 'image/png',
