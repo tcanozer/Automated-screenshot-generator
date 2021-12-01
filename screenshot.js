@@ -19,12 +19,12 @@ function main() {
   ];
 
   let drive = connectToDrive();
-  urlArray.forEach(element => {
-    takeAndUploadScreenshot(drive, element);
+  urlArray.forEach((element, index) => {
+    takeAndUploadScreenshot(drive, element, index);
   });
 }
 
-function takeAndUploadScreenshot(drive, element) {
+function takeAndUploadScreenshot(drive, element, index) {
 
   var customerKey = config.customerkey;
   secretPhrase = '';
@@ -41,9 +41,9 @@ function takeAndUploadScreenshot(drive, element) {
   var apiUrl = screenshotmachine.generateScreenshotApiUrl(customerKey, secretPhrase, options);
 
   var url_name = element.replace(/.+\/\/|www.|\..+/g, "");
-  var imageName = url_name + '.png';
+  var imageName = (index+1) + '_' + url_name + '.png';
   screenshotmachine.readScreenshot(apiUrl).pipe(fs.createWriteStream(imageName).on('close', function () {
-    console.log('- Screenshot saved as ' + imageName + '\nLink: ' + apiUrl);
+    console.log(index + '- Screenshot saved as ' + imageName + '\nLink: ' + apiUrl);
     uploadScreenShotToDrive(drive, imageName)
   }));
 }
@@ -77,7 +77,6 @@ async function uploadScreenShotToDrive(drive, imageName) {
         name: imageName,
         mimeType: 'image/png',
         parents: [folderId]
-
       },
       media: {
         mimeType: 'image/png',
