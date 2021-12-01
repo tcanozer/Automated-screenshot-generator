@@ -2,8 +2,12 @@ var screenshotmachine = require('screenshotmachine');
 var fs = require('fs');
 var { google } = require('googleapis');
 var path = require('path');
+const config = require('./config.json');
+
+
 
 main();
+
 
 function main() {
 
@@ -11,7 +15,9 @@ function main() {
     'https://ifunded.de/en',
     'https://www.propertypartner.co',
     'https://propertymoose.co.uk',
-    'https://www.homegrown.co.uk'];
+    'https://www.homegrown.co.uk',
+    'https://www.realtymogul.com'
+  ];
 
   let drive = connectToDrive();
   urlArray.forEach(element => {
@@ -21,7 +27,7 @@ function main() {
 
 function takeAndUploadScreenshot(drive, element) {
 
-  var customerKey = '04ffdc';
+  var customerKey = config.customerkey;
   secretPhrase = '';
   options = {
     url: element,
@@ -44,10 +50,10 @@ function takeAndUploadScreenshot(drive, element) {
 }
 
 function connectToDrive() {
-  const CLIENT_ID = '1088594808167-t66748n8cglk0su64hgsldicn849j8je.apps.googleusercontent.com';
-  const CLIENT_SECRET = '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';
+  const CLIENT_ID = config.CLIENT_ID;
+  const CLIENT_SECRET = config.CLIENT_SECRET;
   const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-  const REFRESH_TOKEN = '1//04wVt_aYd3gqnCgYIARAAGAQSNwF-L9Irn3eJp0sjuZJC1wUHXezcmvPGyWzjLU7Ch-72dzxSEzxhflWXU3VzKlN1yIegaXmsnyY';
+  const REFRESH_TOKEN = config.REFRESH_TOKEN;
 
   const oauth2Client = new google.auth.OAuth2(
     CLIENT_ID,
